@@ -43,12 +43,12 @@
       document
         .querySelectorAll('script[type="text/javascript"]')
         .forEach((script) => script.remove());
-      blackbaudGarbage.remove();
-      loginInput.remove();
-      rememberCheckbox.remove();
-      nextButton.value = "Sign in with Google";
+      blackbaudGarbage?.remove();
+      loginInput?.remove();
+      rememberCheckbox?.remove();
+      nextButton?.value = "Sign in with Google";
 
-      nextButton.addEventListener("click", function () {
+      nextButton?.addEventListener("click", function () {
         console.log(`Redirecting to ${dashboard}`);
         window.location.href = `https://app.blackbaud.com/signin/?redirectUrl=${dashboard}`;
       });
