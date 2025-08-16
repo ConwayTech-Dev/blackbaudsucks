@@ -1,12 +1,19 @@
 (async function () {
-  async function waitForElement(selector) {
-    return new Promise((resolve) => {
+  async function waitForElement(selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      observer.disconnect();
+      reject(new Error("Timed out when waiting for" + selector))
+    }, timeout)
+    
       if (document.querySelector(selector)) {
+        clearTimeout(timer);
         return resolve(document.querySelector(selector));
       }
 
       const observer = new MutationObserver((mutations) => {
         if (document.querySelector(selector)) {
+          clearTimeout(timer);
           observer.disconnect();
           resolve(document.querySelector(selector));
         }
