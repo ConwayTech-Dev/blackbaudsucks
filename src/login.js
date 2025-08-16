@@ -1,11 +1,11 @@
 (async function () {
   async function waitForElement(selector, timeout = 5000) {
     return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => {
-      observer.disconnect();
-      reject(new Error("Timed out when waiting for" + selector))
-    }, timeout)
-    
+      const timer = setTimeout(() => {
+        observer.disconnect();
+        reject(new Error("Timed out when waiting for" + selector));
+      }, timeout);
+
       if (document.querySelector(selector)) {
         clearTimeout(timer);
         return resolve(document.querySelector(selector));
@@ -53,7 +53,7 @@
       blackbaudGarbage?.remove();
       loginInput?.remove();
       rememberCheckbox?.remove();
-      nextButton?.value = "Sign in with Google";
+      nextButton.value = "Sign in with Google";
 
       nextButton?.addEventListener("click", function () {
         console.log(`Redirecting to ${dashboard}`);
