@@ -1,0 +1,19 @@
+{
+  "name": "Fix Blackbaud",
+  "description": "Blackbaud sucks, so this extension fixes that",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "src/popup.html"
+  },
+  "content_scripts": [
+    {
+      "js": ["src/content.js"],
+      "matches": [
+        "https://accounts.google.com/*",
+        "https://*.myschoolapp.com/*",
+        "https://*.blackbaud.com/*"
+      ]
+    }
+  ]
+}
