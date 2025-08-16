@@ -62,6 +62,6 @@
     }
   }
 
-  await loginPage();
+  loginPage();
   window.addEventListener("hashchange", loginPage);
 })();
