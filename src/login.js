@@ -1,5 +1,5 @@
 (async function () {
-  async function waitForElement(selector, timeout = 5000) {
+  async function waitForElement(selector, timeout = 4000) {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         observer.disconnect();
@@ -64,5 +64,39 @@
   }
 
   loginPage();
+  // Handle hash changes (common)
   window.addEventListener("hashchange", loginPage);
+
+  // Google OAuth account selection
+  async function handleGoogleOAuth() {
+    if (
+      window.location.href.includes("accounts.google.com") &&
+      window.location.href.includes("blackbaud")
+    ) {
+      // Wait for account options to load
+      const accountOptions = await waitForElement("[data-email]");
+
+      const selectors = [
+        "[data-email*='polytechnic.org']",
+        "[data-email*='chandlerschool.org']",
+      ];
+
+      let polytechnicAccount = null;
+
+      for (const selector of selectors) {
+        polytechnicAccount = document.querySelector(selector);
+        if (polytechnicAccount) break;
+      }
+
+      if (polytechnicAccount) {
+        polytechnicAccount.click();
+      } else {
+        console.log("The user isn't signed into an eligible account");
+      }
+    }
+  }
+
+  loginPage();
+  window.addEventListener("hashchange", loginPage);
+  handleGoogleOAuth();
 })();
