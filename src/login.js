@@ -54,6 +54,7 @@
       loginInput?.remove();
       rememberCheckbox?.remove();
       nextButton.value = "Sign in with Google";
+      nextButton.style.width = "100%";
 
       nextButton?.addEventListener("click", function () {
         console.log(`Redirecting to ${dashboard}`);
