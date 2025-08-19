@@ -1,8 +1,10 @@
 {
-  "name": "Fix Blackbaud",
-  "description": "Blackbaud sucks, so this extension fixes that",
+  "name": "Blackbaud Next: Supercharge your education",
+  "short_name": "Blackbaud Next",
+  "description": "Enhance your Blackbaud experience with useful tools.",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions": ["storage"],
   "action": {
     "default_popup": "src/popup.html"
   },

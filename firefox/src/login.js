@@ -1,4 +1,9 @@
 (async function () {
+  const loginFix = await browser.storage.sync.get({ loginFix: true });
+  const automaticLogin = await browser.storage.sync.get({
+    automaticLogin: true,
+  });
+
   async function waitForElement(selector, timeout = 4000) {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
@@ -26,11 +31,13 @@
     });
   }
 
-  if (window.location.href.includes("app.blackbaud.com/signin")) {
-    const initiateAuth = await waitForElement(
-      "app-spa-auth-google-signin-button button"
-    );
-    initiateAuth.click();
+  async function autoClickLogin() {
+    if (window.location.href.includes("app.blackbaud.com/signin")) {
+      const initiateAuth = await waitForElement(
+        "app-spa-auth-google-signin-button button"
+      );
+      initiateAuth.click();
+    }
   }
 
   async function loginPage() {
@@ -63,9 +70,11 @@
     }
   }
 
-  loginPage();
-  // Handle hash changes (common)
-  window.addEventListener("hashchange", loginPage);
+  if (loginFix.loginFix) {
+    loginPage();
+    // Handle hash changes (common)
+    window.addEventListener("hashchange", loginPage);
+  }
 
   // Google OAuth account selection
   async function handleGoogleOAuth() {
@@ -79,6 +88,7 @@
       const selectors = [
         "[data-email*='polytechnic.org']",
         "[data-email*='chandlerschool.org']",
+        "[data-email*='flintridgeprep.org']",
       ];
 
       let polytechnicAccount = null;
@@ -96,7 +106,8 @@
     }
   }
 
-  loginPage();
-  window.addEventListener("hashchange", loginPage);
-  handleGoogleOAuth();
+  if (automaticLogin.automaticLogin) {
+    autoClickLogin();
+    handleGoogleOAuth();
+  }
 })();
